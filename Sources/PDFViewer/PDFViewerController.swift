@@ -15,6 +15,7 @@ public class PDFViewerController: UIViewController {
     private let mainStackView = UIStackView() .. {
         $0.axis = .horizontal
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.semanticContentAttribute = .forceLeftToRight
     }
     
     private let pdfView = PDFView() .. {
@@ -37,8 +38,16 @@ public class PDFViewerController: UIViewController {
         $0.widthAnchor.constraint(equalToConstant: 24).isActive = true
         let icon = UIImage(named: "sidebar.left", in: .module, compatibleWith: nil)//?.tintColor(.gray)
         $0.setImage(icon, for: .normal)
-        $0.tintColor = .gray
+        $0.tintColor = .darkGray
         $0.addTarget(self, action: #selector(sidebarButtonDidTap), for: .touchUpInside)
+    }
+    
+    private let closeButton = UIButton() .. {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitle("close", for: .normal)
+        
+        $0.setTitleColor(.darkGray, for: .normal)
+        $0.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
     }
     
     
@@ -65,8 +74,11 @@ public class PDFViewerController: UIViewController {
             
         view.backgroundColor = .white
         
+        navigationController?.navigationBar.semanticContentAttribute = .forceLeftToRight
         navigationItem.title = documentTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: sideBarButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
+        
         navigationController?.navigationBar.shadowImage = UIImage()
         
         setupViewContents()
@@ -118,5 +130,9 @@ public class PDFViewerController: UIViewController {
         UIView.animate(withDuration: 0.2) {
             self.thumbnailView.isHidden = !self.thumbnailView.isHidden
         }
+    }
+    
+    @objc private func closeButtonDidTap() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
