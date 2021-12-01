@@ -36,7 +36,7 @@ public class PDFViewerController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.heightAnchor.constraint(equalToConstant: 24).isActive = true
         $0.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        let icon = UIImage(named: "sidebar.left", in: .module, compatibleWith: nil)//?.tintColor(.gray)
+        let icon = UIImage(named: "sidebar.left", in: .module, compatibleWith: nil)
         $0.setImage(icon, for: .normal)
         $0.tintColor = .darkGray
         $0.addTarget(self, action: #selector(sidebarButtonDidTap), for: .touchUpInside)
@@ -44,7 +44,7 @@ public class PDFViewerController: UIViewController {
     
     private let closeButton = UIButton() .. {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setTitle("close", for: .normal)
+        $0.setTitle("close".localized(bundle: .module), for: .normal)
         
         $0.setTitleColor(.darkGray, for: .normal)
         $0.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
